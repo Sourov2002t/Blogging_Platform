@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Blog Platform</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Simple Blog Platform</h1>
+        <p>A basic blogging platform built with Java Servlets, JSP, and XML data storage.</p>
+        <div class="nav-links">
+            <a href="${pageContext.request.contextPath}/posts" class="btn">View All Posts</a>
+            <a href="${pageContext.request.contextPath}/posts/new" class="btn">Create New Post</a>
+        </div>
+    </div>
+</body>
+</html>

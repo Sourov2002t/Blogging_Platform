@@ -1,0 +1,15 @@
+1745133750322	Move 'post-view.jsp' to 'WEB-INF'
+1745134344695	Delete element
+1745134628911	Move 'PostDAO.java' to 'java'
+1745134632373	Move 'Post.java' to 'java'
+1745135374104	Delete element
+1745135379300	Delete element
+1745135398098	Delete element
+1745135403129	Delete element
+1745135407791	Delete element
+1745135542708	Move 'post-list.jsp' to 'webapp'
+1745137980546	Delete element
+1745139858561	Move 'Post.java' to 'model'
+1745139861353	Move 'PostDAO.java' to 'model'
+1745139864468	Move 'PostServlet.java' to 'model'
+1745139970073	Rename resource 'vlog'

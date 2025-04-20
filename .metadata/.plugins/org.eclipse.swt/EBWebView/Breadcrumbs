@@ -1,0 +1,153 @@
+1:20:17 Memory Pressure: Moderate
+1:20:27 Memory Pressure: Moderate
+1:20:37 Memory Pressure: Moderate
+1:20:47 Memory Pressure: Moderate
+1:20:57 Memory Pressure: Moderate
+1:21:07 Memory Pressure: Moderate
+1:21:17 Memory Pressure: Moderate
+1:21:27 Memory Pressure: Moderate
+1:22:22 Memory Pressure: Moderate
+1:23:07 Memory Pressure: Moderate
+1:24:02 Memory Pressure: Moderate
+1:24:12 Memory Pressure: Moderate
+1:25:43 Memory Pressure: Moderate
+1:27:03 Memory Pressure: Moderate
+1:29:18 Memory Pressure: Moderate
+1:29:28 Memory Pressure: Moderate
+1:30:13 Memory Pressure: Moderate
+1:30:23 Memory Pressure: Moderate
+1:31:18 Memory Pressure: Moderate
+1:39:04 Memory Pressure: Moderate
+1:39:39 Memory Pressure: Moderate
+1:39:54 Memory Pressure: Moderate
+1:40:04 Memory Pressure: Moderate
+1:40:44 Memory Pressure: Moderate
+1:40:54 Memory Pressure: Moderate
+1:41:04 Memory Pressure: Moderate
+1:41:14 Memory Pressure: Moderate
+1:41:24 Memory Pressure: Moderate
+1:41:34 Memory Pressure: Moderate
+1:42:04 Memory Pressure: Moderate
+1:42:34 Memory Pressure: Moderate
+1:43:14 Memory Pressure: Moderate
+1:43:29 Memory Pressure: Moderate
+1:43:39 Memory Pressure: Moderate
+1:43:49 Memory Pressure: Moderate
+1:44:14 Memory Pressure: Moderate
+1:44:24 Memory Pressure: Moderate
+1:44:34 Memory Pressure: Moderate
+1:44:44 Memory Pressure: Moderate
+1:44:54 Memory Pressure: Moderate
+1:45:39 Memory Pressure: Moderate
+1:45:49 Memory Pressure: Moderate
+1:46:00 Memory Pressure: Moderate
+1:46:10 Memory Pressure: Moderate
+1:46:20 Memory Pressure: Moderate
+1:46:30 Memory Pressure: Moderate
+1:46:40 Memory Pressure: Moderate
+1:46:50 Memory Pressure: Moderate
+1:47:00 Memory Pressure: Moderate
+1:47:10 Memory Pressure: Moderate
+1:47:20 Memory Pressure: Moderate
+1:47:45 Memory Pressure: Moderate
+1:47:55 Memory Pressure: Moderate
+1:48:05 Memory Pressure: Moderate
+1:49:15 Microsoft.NewBrowser_Popup
+1:49:15 Microsoft.BrowserList.AddBrowser
+1:49:15 Browser5 Insert active Tab5 at 0
+1:49:15 Tab5 StartNav12 #auto_toplevel
+1:49:15 Tab5 StartNav13 #typed
+1:49:15 Tab5 FinishNav12
+1:49:15 Tab5 PageLoad
+1:49:15 Tab5 FinishNav13
+1:49:15 Tab5 PageLoad
+1:49:20 Tab5 StartNav14 #typed
+1:49:20 Tab5 FinishNav14
+1:49:20 Tab5 PageLoad
+1:49:35 Tab5 StartNav15 #typed
+1:49:35 Tab5 FinishNav15
+1:49:35 Tab5 PageLoad
+1:49:45 Tab5 StartNav16 #typed
+1:49:45 Tab5 FinishNav16
+1:49:45 Tab5 PageLoad
+1:49:51 Tab4 StartNav17 #typed
+1:49:51 Tab4 FinishNav17
+1:49:51 Tab4 PageLoad
+1:49:53 Tab4 StartNav18 #typed
+1:49:53 Tab4 FinishNav18
+1:49:53 Tab4 PageLoad
+1:50:01 Tab4 StartNav19 #typed
+1:50:01 Tab4 FinishNav19
+1:50:01 Tab4 PageLoad
+1:50:04 Tab4 StartNav20 #typed
+1:50:04 Tab4 FinishNav20
+1:50:04 Tab4 PageLoad
+1:50:19 Tab5 StartNav21 #typed
+1:50:19 Tab5 FinishNav21
+1:50:19 Tab5 PageLoad
+1:50:45 Memory Pressure: Moderate
+1:50:55 Memory Pressure: Moderate
+1:51:05 Memory Pressure: Moderate
+1:51:15 Memory Pressure: Moderate
+1:51:25 Memory Pressure: Moderate
+1:51:35 Memory Pressure: Moderate
+1:51:45 Memory Pressure: Moderate
+1:52:45 Memory Pressure: Moderate
+1:52:55 Memory Pressure: Moderate
+1:53:05 Memory Pressure: Moderate
+1:53:15 Memory Pressure: Moderate
+1:54:51 Memory Pressure: Moderate
+1:56:31 Memory Pressure: Moderate
+1:56:41 Memory Pressure: Moderate
+1:57:15 Microsoft.Shutdown.OnWindowClosing
+1:57:15 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
+1:57:15 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
+1:57:15 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:15 Tab4 RenderProcessGone
+1:57:16 Browser4 Close Tab4 at 0
+1:57:16 Tab4 WebContentsDestroyed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Widget Closed: BrowserFrame
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Microsoft.Browser_Removed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
+1:57:16 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Tab5 RenderProcessGone
+1:57:16 Browser5 Close Tab5 at 0
+1:57:16 Tab5 WebContentsDestroyed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Widget Closed: BrowserFrame
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Microsoft.Browser_Removed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
+1:57:16 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Tab1 RenderProcessGone
+1:57:16 Browser1 Close Tab1 at 0
+1:57:16 Tab1 WebContentsDestroyed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Widget Closed: BrowserFrame
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Microsoft.Browser_Removed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosing_MaybeClearBrowsingDataOnExit
+1:57:16 Microsoft.Shutdown.OnWindowClosing_ClearBrowsingDataOnExitNotInProgress
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Tab2 RenderProcessGone
+1:57:16 Browser2 Close Tab2 at 0
+1:57:16 Tab2 WebContentsDestroyed
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Widget Closed: BrowserFrame
+1:57:16 Microsoft.Shutdown.OnWindowClosing
+1:57:16 Microsoft.Shutdown.OnWindowClosingPostClearBrowsingData_NoBrowsingDataCleared
+1:57:16 Microsoft.Last_Browser_Removed

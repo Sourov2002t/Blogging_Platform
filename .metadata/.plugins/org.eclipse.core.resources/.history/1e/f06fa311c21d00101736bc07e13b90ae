@@ -1,0 +1,587 @@
+<%-- index.jsp --%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.ArrayList, java.util.List, java.util.Date, java.text.SimpleDateFormat, 
+                 java.util.HashMap, java.util.Map, java.util.Collections, java.util.Comparator" %>
+<%@ page errorPage="error.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1, h2 {
+            color: #444;
+            margin-bottom: 20px;
+        }
+        
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+        
+        .btn:hover {
+            background-color: #0069d9;
+            text-decoration: none;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        
+        .nav-links {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .post-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .post-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .post-meta {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .post-excerpt {
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .post {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .post-content {
+            margin: 20px 0;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .inline-form {
+            display: inline;
+        }
+
+        .alert {
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .post-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%!
+        // Define a simple Post class
+        public static class Post {
+            private int id;
+            private String title;
+            private String author;
+            private String content;
+            private Date createdDate;
+            
+            public Post(int id, String title, String author, String content, Date createdDate) {
+                this.id = id;
+                this.title = title != null ? title.trim() : "";
+                this.author = author != null ? author.trim() : "";
+                this.content = content != null ? content : "";
+                this.createdDate = createdDate != null ? createdDate : new Date();
+            }
+            
+            public int getId() { return id; }
+            public String getTitle() { return title; }
+            public String getAuthor() { return author; }
+            public String getContent() { return content; }
+            public Date getCreatedDate() { return createdDate; }
+        }
+        
+        // Sample posts data (in-memory storage)
+        private static List<Post> posts = Collections.synchronizedList(new ArrayList<>());
+        private static int nextId = 1;
+        
+        // Helper function to find post by ID
+        public Post findPostById(int id) {
+            for (Post post : posts) {
+                if (post.getId() == id) {
+                    return post;
+                }
+            }
+            return null;
+        }
+        
+        // Helper function to format date
+        public String formatDate(Date date, String pattern) {
+            if (date == null) return "";
+            SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+            return sdf.format(date);
+        }
+        
+        // Helper function to get excerpt
+        public String getExcerpt(String content, int maxLength) {
+            if (content == null) return "";
+            if (content.length() <= maxLength) {
+                return content;
+            }
+            // Try to find a space near the cutoff point to avoid cutting words in half
+            int cutoff = content.lastIndexOf(' ', maxLength);
+            if (cutoff == -1) cutoff = maxLength;
+            return content.substring(0, cutoff) + "...";
+        }
+        
+        // Initialize with sample data
+        static {
+            posts.add(new Post(nextId++, "Getting Started with JSP", "John Doe", 
+                "JavaServer Pages (JSP) is a technology that helps software developers create dynamically generated web pages based on HTML, XML, or other document types. JSP is similar to PHP and ASP, but uses the Java programming language.\n\nJSP technology allows Java code and certain pre-defined actions to be interleaved with static web markup content, such as HTML. The resulting page is compiled and executed on the server to deliver a document that can be a complete HTML or XML page or a fragment of a web page that will be integrated into an existing web application.", 
+                new Date()));
+            
+            posts.add(new Post(nextId++, "Understanding Servlets", "Jane Smith", 
+                "A servlet is a Java programming language class that is used to extend the capabilities of servers that host applications accessed by means of a request-response programming model. Although servlets can respond to any type of request, they are commonly used to extend the applications hosted by web servers.\n\nServlets are the Java counterpart to non-Java dynamic web content technologies such as PHP and ASP.NET. Servlets are most often used to process or store data submitted by an HTML form, provide dynamic content such as the results of a database query, and manage state information that does not exist in the stateless HTTP protocol.", 
+                new Date(System.currentTimeMillis() - 86400000))); // 1 day ago
+            
+            posts.add(new Post(nextId++, "JSP and JSTL Tips", "Bob Johnson", 
+                "JSTL stands for JSP Standard Tag Library. It provides tags that allow developers to perform common tasks like iterations, conditionals, and formatting without writing Java code directly in JSP.\n\nHere are some tips for using JSP and JSTL effectively:\n\n1. Use JSTL tags instead of scriptlets whenever possible\n2. Remember to include the appropriate taglib directives\n3. Use Expression Language (EL) for accessing data\n4. Keep your business logic separate from presentation\n5. Consider using a more modern framework like Spring MVC or JSF for new projects", 
+                new Date(System.currentTimeMillis() - 172800000))); // 2 days ago
+        }
+        
+        // Sanitize HTML to prevent XSS attacks
+        public String escapeHtml(String input) {
+            if (input == null) return "";
+            return input.replace("&", "&amp;")
+                       .replace("<", "&lt;")
+                       .replace(">", "&gt;")
+                       .replace("\"", "&quot;")
+                       .replace("'", "&#x27;");
+        }
+    %>
+    
+    <%
+        // Get session message if exists and clear it
+        String message = (String) session.getAttribute("message");
+        String messageType = (String) session.getAttribute("messageType");
+        session.removeAttribute("message");
+        session.removeAttribute("messageType");
+        
+        try {
+            // Process form submissions
+            String action = request.getParameter("action");
+            
+            if ("create".equals(action) || "update".equals(action)) {
+                String title = request.getParameter("title");
+                String author = request.getParameter("author");
+                String content = request.getParameter("content");
+                
+                // Simple validation
+                if (title == null || title.trim().isEmpty() || 
+                    author == null || author.trim().isEmpty() || 
+                    content == null || content.trim().isEmpty()) {
+                    throw new IllegalArgumentException("All fields are required");
+                }
+                
+                if ("create".equals(action)) {
+                    // Create new post
+                    posts.add(new Post(nextId++, title, author, content, new Date()));
+                    session.setAttribute("message", "Post created successfully!");
+                    session.setAttribute("messageType", "success");
+                } else {
+                    // Update existing post
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    Post existingPost = findPostById(id);
+                    
+                    if (existingPost != null) {
+                        synchronized(posts) {
+                            for (int i = 0; i < posts.size(); i++) {
+                                Post post = posts.get(i);
+                                if (post.getId() == id) {
+                                    posts.set(i, new Post(id, title, author, content, post.getCreatedDate()));
+                                    break;
+                                }
+                            }
+                        }
+                        session.setAttribute("message", "Post updated successfully!");
+                        session.setAttribute("messageType", "success");
+                    } else {
+                        session.setAttribute("message", "Post not found!");
+                        session.setAttribute("messageType", "danger");
+                    }
+                }
+                
+                // Redirect to avoid form resubmission
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                return;
+            } else if ("delete".equals(action)) {
+                // Delete post
+                int id = Integer.parseInt(request.getParameter("id"));
+                boolean removed = false;
+                
+                synchronized(posts) {
+                    for (int i = 0; i < posts.size(); i++) {
+                        if (posts.get(i).getId() == id) {
+                            posts.remove(i);
+                            removed = true;
+                            break;
+                        }
+                    }
+                }
+                
+                if (removed) {
+                    session.setAttribute("message", "Post deleted successfully!");
+                    session.setAttribute("messageType", "success");
+                } else {
+                    session.setAttribute("message", "Post not found!");
+                    session.setAttribute("messageType", "danger");
+                }
+                
+                // Redirect to avoid form resubmission
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                return;
+            }
+            
+            // Handle view mode
+            String view = request.getParameter("view");
+            String postIdParam = request.getParameter("id");
+            
+            if ("new".equals(view)) {
+                // Show new post form
+    %>
+                <div class="container">
+                    <h1>Create New Blog Post</h1>
+                    
+                    <div class="nav-links">
+                        <a href="<%= request.getContextPath() %>/index.jsp" class="btn">← Back to Posts</a>
+                    </div>
+                    
+                    <% if (message != null && !message.isEmpty()) { %>
+                        <div class="alert alert-<%= messageType %>">
+                            <%= escapeHtml(message) %>
+                        </div>
+                    <% } %>
+                    
+                    <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                        <input type="hidden" name="action" value="create">
+                        
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" maxlength="200" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="author">Author</label>
+                            <input type="text" id="author" name="author" maxlength="100" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content">Content</label>
+                            <textarea id="content" name="content" rows="10" required></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn">Save</button>
+                            <a href="<%= request.getContextPath() %>/index.jsp" class="btn">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+    <%
+            } else if ("edit".equals(view) && postIdParam != null) {
+                // Show edit post form
+                try {
+                    int postId = Integer.parseInt(postIdParam);
+                    Post postToEdit = findPostById(postId);
+                    
+                    if (postToEdit != null) {
+    %>
+                        <div class="container">
+                            <h1>Edit Blog Post</h1>
+                            
+                            <div class="nav-links">
+                                <a href="<%= request.getContextPath() %>/index.jsp" class="btn">← Back to Posts</a>
+                            </div>
+                            
+                            <% if (message != null && !message.isEmpty()) { %>
+                                <div class="alert alert-<%= messageType %>">
+                                    <%= escapeHtml(message) %>
+                                </div>
+                            <% } %>
+                            
+                            <form action="<%= request.getContextPath() %>/index.jsp" method="post">
+                                <input type="hidden" name="action" value="update">
+                                <input type="hidden" name="id" value="<%= postToEdit.getId() %>">
+                                
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" id="title" name="title" value="<%= escapeHtml(postToEdit.getTitle()) %>" maxlength="200" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="author">Author</label>
+                                    <input type="text" id="author" name="author" value="<%= escapeHtml(postToEdit.getAuthor()) %>" maxlength="100" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="content">Content</label>
+                                    <textarea id="content" name="content" rows="10" required><%= escapeHtml(postToEdit.getContent()) %></textarea>
+                                </div>
+                                
+                                <div class="form-actions">
+                                    <button type="submit" class="btn">Save</button>
+                                    <a href="<%= request.getContextPath() %>/index.jsp" class="btn">Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+    <%
+                    } else {
+                        // Post not found, redirect to posts list
+                        session.setAttribute("message", "Post not found!");
+                        session.setAttribute("messageType", "danger");
+                        response.sendRedirect(request.getContextPath() + "/index.jsp");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    // Invalid ID format, redirect to posts list
+                    session.setAttribute("message", "Invalid post ID!");
+                    session.setAttribute("messageType", "danger");
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                    return;
+                }
+            } else if (postIdParam != null) {
+                // Show single post view
+                try {
+                    int postId = Integer.parseInt(postIdParam);
+                    Post postToView = findPostById(postId);
+                    
+                    if (postToView != null) {
+    %>
+                        <div class="container">
+                            <div class="nav-links">
+                                <a href="<%= request.getContextPath() %>/index.jsp" class="btn">← Back to Posts</a>
+                            </div>
+                            
+                            <% if (message != null && !message.isEmpty()) { %>
+                                <div class="alert alert-<%= messageType %>">
+                                    <%= escapeHtml(message) %>
+                                </div>
+                            <% } %>
+                            
+                            <article class="post">
+                                <h1><%= escapeHtml(postToView.getTitle()) %></h1>
+                                <div class="post-meta">
+                                    By <%= escapeHtml(postToView.getAuthor()) %> on <%= formatDate(postToView.getCreatedDate(), "MMMM dd, yyyy") %>
+                                </div>
+                                
+                                <div class="post-content">
+                                    <%= escapeHtml(postToView.getContent()) %>
+                                </div>
+                                
+                                <div class="post-actions">
+                                    <a href="<%= request.getContextPath() %>/index.jsp?view=edit&id=<%= postToView.getId() %>" class="btn">Edit</a>
+                                    <form action="<%= request.getContextPath() %>/index.jsp" method="post" class="inline-form">
+                                        <input type="hidden" name="action" value="delete">
+                                        <input type="hidden" name="id" value="<%= postToView.getId() %>">
+                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                                    </form>
+                                </div>
+                            </article>
+                        </div>
+    <%
+                    } else {
+                        // Post not found, redirect to posts list
+                        session.setAttribute("message", "Post not found!");
+                        session.setAttribute("messageType", "danger");
+                        response.sendRedirect(request.getContextPath() + "/index.jsp");
+                        return;
+                    }
+                } catch (NumberFormatException e) {
+                    // Invalid ID format, redirect to posts list
+                    session.setAttribute("message", "Invalid post ID!");
+                    session.setAttribute("messageType", "danger");
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                    return;
+                }
+            } else {
+                // Show posts list (default view)
+                // Sort posts by date (most recent first)
+                List<Post> sortedPosts = new ArrayList<>(posts);
+                Collections.sort(sortedPosts, new Comparator<Post>() {
+                    public int compare(Post p1, Post p2) {
+                        return p2.getCreatedDate().compareTo(p1.getCreatedDate());
+                    }
+                });
+    %>
+                <div class="container">
+                    <h1>Blog Posts</h1>
+                    
+                    <div class="nav-links">
+                        <a href="<%= request.getContextPath() %>/index.jsp?view=new" class="btn">Create New Post</a>
+                    </div>
+                    
+                    <% if (message != null && !message.isEmpty()) { %>
+                        <div class="alert alert-<%= messageType %>">
+                            <%= escapeHtml(message) %>
+                        </div>
+                    <% } %>
+                    
+                    <% if (sortedPosts.isEmpty()) { %>
+                        <p>No posts available. Create your first blog post!</p>
+                    <% } else { %>
+                        <div class="post-grid">
+                            <% for (Post post : sortedPosts) { %>
+                                <div class="post-card">
+                                    <h2><a href="<%= request.getContextPath() %>/index.jsp?id=<%= post.getId() %>"><%= escapeHtml(post.getTitle()) %></a></h2>
+                                    <p class="post-meta">
+                                        By <%= escapeHtml(post.getAuthor()) %> on <%= formatDate(post.getCreatedDate(), "MMM dd, yyyy") %>
+                                    </p>
+                                    <p class="post-excerpt"><%= escapeHtml(getExcerpt(post.getContent(), 150)) %></p>
+                                    <div class="post-actions">
+                                        <a href="<%= request.getContextPath() %>/index.jsp?id=<%= post.getId() %>" class="btn">Read More</a>
+                                        <a href="<%= request.getContextPath() %>/index.jsp?view=edit&id=<%= post.getId() %>" class="btn">Edit</a>
+                                        <form action="<%= request.getContextPath() %>/index.jsp" method="post" class="inline-form">
+                                            <input type="hidden" name="action" value="delete">
+                                            <input type="hidden" name="id" value="<%= post.getId() %>">
+                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            <% } %>
+                        </div>
+                    <% } %>
+                </div>
+    <%
+            }
+        } catch (NumberFormatException e) {
+            // Handle number format exception
+            session.setAttribute("message", "Invalid ID format!");
+            session.setAttribute("messageType", "danger");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            return;
+        } catch (Exception e) {
+            // Handle other exceptions
+            session.setAttribute("message", "Error: " + e.getMessage());
+            session.setAttribute("messageType", "danger");
+            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            return;
+        }
+    %>
+</body>
+</html>

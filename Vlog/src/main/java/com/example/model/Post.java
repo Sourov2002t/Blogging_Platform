@@ -1,0 +1,66 @@
+package com.example.model;
+import java.io.Serializable;
+import java.util.Date;
+
+public class Post implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
+    private String id;
+    private String title;
+    private String content;
+    private String author;
+    private Date createdDate;
+    
+    public Post() {
+        this.createdDate = new Date();
+    }
+    
+    public Post(String id, String title, String content, String author) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+        this.createdDate = new Date();
+    }
+    
+    // Getters and Setters
+    public String getId() {
+        return id;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public void setContent(String content) {
+        this.content = content;
+    }
+    
+    public String getAuthor() {
+        return author;
+    }
+    
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+}

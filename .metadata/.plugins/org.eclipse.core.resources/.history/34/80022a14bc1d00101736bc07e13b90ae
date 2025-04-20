@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isErrorPage="true"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Oops! Something went wrong.</h1>
+        <p>We're sorry, but an error occurred while processing your request.</p>
+        <div class="nav-links">
+            <a href="${pageContext.request.contextPath}/" class="btn">Go to Homepage</a>
+        </div>
+    </div>
+</body>
+</html>

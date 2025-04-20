@@ -1,0 +1,107 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.example.model.Post" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= request.getParameter("id") != null ? "Edit Post" : "Create New Post" %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            font-family: inherit;
+            font-size: inherit;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 300px;
+            resize: vertical;
+        }
+        .btn {
+            display: inline-block;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .btn-secondary {
+            background: #6c757d;
+        }
+        .actions {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <% 
+        Post post = (Post) request.getAttribute("post");
+        boolean isEdit = (post != null);
+        %>
+        
+        <h1><%= isEdit ? "Edit Post" : "Create New Post" %></h1>
+        
+        <form method="post" action="<%= request.getContextPath() %>/posts">
+            <input type="hidden" name="action" value="<%= isEdit ? "update" : "create" %>">
+            <% if(isEdit) { %>
+                <input type="hidden" name="id" value="<%= post.getId() %>">
+            <% } %>
+            
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required value="<%= isEdit ? post.getTitle() : "" %>">
+            </div>
+            
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text" id="author" name="author" required value="<%= isEdit ? post.getAuthor() : "" %>">
+            </div>
+            
+            <div class="form-group">
+                <label for="content">Content</label>
+                <textarea id="content" name="content" required><%= isEdit ? post.getContent() : "" %></textarea>
+            </div>
+            
+            <div class="actions">
+                <button type="submit" class="btn"><%= isEdit ? "Update Post" : "Create Post" %></button>
+                <a href="<%= request.getContextPath() %>/posts" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
